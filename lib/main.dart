@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  try {
+    await Firebase.initializeApp();
+  } catch (e) {
+    print("Error initializing Firebase: $e");
+  }
+
   runApp(MyApp());
 }
 
@@ -33,22 +39,28 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
 
+    // Fade-in effect for splash image
     Timer(Duration(milliseconds: 500), () {
       setState(() {
         _opacity = 1.0;
       });
     });
 
+    // Navigate to the appropriate page after 5 seconds
     Timer(Duration(seconds: 5), () {
       _navigateToNextPage();
     });
   }
 
+  // Function to check authentication state and navigate accordingly
   void _navigateToNextPage() async {
-    // Check the authentication state
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user;
+    try {
+      user = FirebaseAuth.instance.currentUser;
+    } catch (e) {
+      print("Error checking user authentication: $e");
+    }
 
-    // Navigate based on user authentication state
     if (user != null) {
       // User is signed in, navigate to the homepage
       Navigator.of(context).pushReplacement(
@@ -82,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         child: AnimatedOpacity(
           opacity: _opacity,
           duration: Duration(seconds: 3), // Fade-in duration
-          child: Image.network(
+           child: Image.network(
             'https://www.destinationsunplugged.com/wp-content/uploads/2019/07/pondicherry-Banner-Text.png',
             height: 200,
             fit: BoxFit.cover,

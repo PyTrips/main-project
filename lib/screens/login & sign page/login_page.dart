@@ -252,7 +252,17 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>reset_pass()));
+                          // Check if the email field is empty
+                          if (_loginIdController.text.trim().isEmpty) {
+                            // Display error message if email is empty
+                            _showErrorMessage('Email is not filled');
+                          } else {
+                            // Navigate to the reset password page if email is filled
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => reset_pass()),
+                            );
+                          }
                         },
                         child: const Text(
                           'Forget Password',
@@ -260,6 +270,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
+
                     ElevatedButton(
                       onPressed: _login,
                       style: ElevatedButton.styleFrom(
