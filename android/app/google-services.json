@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "773499687777",
+    "project_id": "emialauth-ee840",
+    "storage_bucket": "emialauth-ee840.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773499687777:android:1ae32658f648c95d572b20",
+        "android_client_info": {
+          "package_name": "com.example.final_yearproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773499687777-kdpql84583h7j38pvqkmjgclv5v0a4hk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.final_yearproject",
+            "certificate_hash": "8e789c06fa36b7b814bf5533b98d124b25d81eec"
+          }
+        },
+        {
+          "client_id": "773499687777-i5ds4qhsoqc3ecqarfa3ajots42ea2nm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg2e-4iBldmVPLTUIu9pjM6bytEqsPOVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773499687777-i5ds4qhsoqc3ecqarfa3ajots42ea2nm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
