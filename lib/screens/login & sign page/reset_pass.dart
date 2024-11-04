@@ -19,57 +19,19 @@ class reset_pass extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'We have sent an OTP!!',
+                'Password reset link sent!',
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.blue,
                 ),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 10),
               const Text(
-                '*It may take 1-2 minutes.',
+                'Please check your email and follow the link to reset your password.',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 40),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Enter OTP',
-                  labelStyle: TextStyle(color: Colors.blue),
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: TextStyle(color: Colors.blue),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Re-type Password',
-                  labelStyle: TextStyle(color: Colors.blue),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement verify button logic here
-                },
-                child: const Text('Verify'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
                 ),
               ),
             ],
