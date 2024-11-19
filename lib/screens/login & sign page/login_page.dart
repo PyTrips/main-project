@@ -1,9 +1,10 @@
-import 'package:final_yearproject/screens/login%20&%20sign%20page/reset_pass.dart';
 import 'package:final_yearproject/screens/login%20&%20sign%20page/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../Home page/Homepage.dart';
+import '../admin page/Admin_page.dart';
+import 'forgot_pass.dart';
 
 class login_page extends StatelessWidget {
   @override
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (googleSignInAccount == null) {
       _showErrorMessage("Google Sign-In aborted");
-      return; // Handle sign-in cancellation
+      return;
     }
 
     try {
@@ -101,6 +102,10 @@ class _LoginPageState extends State<LoginPage> {
 
 
   void _login() async {
+
+    const String adminEmail = "pytripsa1@gmail.com";
+    const String adminPassword = "rrrsa1@mit";
+
     String loginId = _loginIdController.text.trim();
     String password = _passwordController.text.trim();
 
@@ -112,27 +117,32 @@ class _LoginPageState extends State<LoginPage> {
           : 'Password is required.');
     } else {
       try {
-
-        UserCredential userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: loginId, password: password);
-
-
-        _showSuccessMessage("Login successful!");
-
-        await Future.delayed(
-            Duration(seconds: 2));
-
-
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const Homepage()),
-              (Route<dynamic> route) => false,
-        );
+        if (loginId == adminEmail && password == adminPassword) {
+          _showSuccessMessage("Welcome Admin!");
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => AdminPage()),
+                (Route<dynamic> route) => false,
+          );
+        } else {
+          // Normal user login with Firebase
+          UserCredential userCredential = await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: loginId, password: password);
+          _showSuccessMessage("Login successful!");
+          await Future.delayed(Duration(seconds: 2));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Homepage()),
+                (Route<dynamic> route) => false,
+          );
+        }
       } catch (e) {
-        _showErrorMessage("Incorrect login Id or Password");
+        _showErrorMessage("Incorrect login ID or Password.");
       }
     }
   }
+
 
   Future<void> _register() async {
     String loginId = _loginIdController.text.trim();
@@ -252,18 +262,12 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          // Check if the email field is empty
-                          if (_loginIdController.text.trim().isEmpty) {
-                            // Display error message if email is empty
-                            _showErrorMessage('Email is not filled');
-                          } else {
-                            // Navigate to the reset password page if email is filled
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => reset_pass()),
+                              MaterialPageRoute(builder: (context) => ForgottenPasswordActivity()),
                             );
-                          }
-                        },
+                          },
+
                         child: const Text(
                           'Forget Password',
                           style: TextStyle(color: Colors.black38),

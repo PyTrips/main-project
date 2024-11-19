@@ -39,20 +39,17 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
 
-    // Fade-in effect for splash image
     Timer(Duration(milliseconds: 500), () {
       setState(() {
         _opacity = 1.0;
       });
     });
 
-    // Navigate to the appropriate page after 5 seconds
     Timer(Duration(seconds: 5), () {
       _navigateToNextPage();
     });
   }
 
-  // Function to check authentication state and navigate accordingly
   void _navigateToNextPage() async {
     User? user;
     try {
@@ -67,21 +64,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         MaterialPageRoute(builder: (context) => Homepage()),
       );
     } else {
-      // User is not signed in, navigate to the login page
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => login_page(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            var curve = Curves.easeInOut;
-            var curvedAnimation = CurvedAnimation(parent: animation, curve: curve);
 
-            return ScaleTransition(
-              scale: curvedAnimation,
-              child: child,
-            );
-          },
-          transitionDuration: Duration(milliseconds: 800),
-        ),
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => login_page()),
       );
     }
   }
@@ -94,13 +79,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         child: AnimatedOpacity(
           opacity: _opacity,
           duration: Duration(seconds: 3), // Fade-in duration
-           child: Image.network(
-            'https://www.destinationsunplugged.com/wp-content/uploads/2019/07/pondicherry-Banner-Text.png',
+          child: Image.asset(
+            'assets/pondicherry-Banner-Text.png',
             height: 200,
             fit: BoxFit.cover,
           ),
         ),
       ),
+
     );
   }
 }

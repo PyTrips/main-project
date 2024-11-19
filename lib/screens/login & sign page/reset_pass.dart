@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
 class reset_pass extends StatelessWidget {
   const reset_pass({super.key});
@@ -9,8 +10,15 @@ class reset_pass extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Reset Password'),
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => login_page()));
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         elevation: 0,
-        titleTextStyle: const TextStyle(color: Colors.blue),
+        titleTextStyle: const TextStyle(color: Colors.black),
       ),
       body: Center(
         child: Padding(
@@ -22,7 +30,7 @@ class reset_pass extends StatelessWidget {
                 'Password reset link sent!',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.blue,
+                  color: Colors.orange,
                 ),
               ),
               const SizedBox(height: 10),

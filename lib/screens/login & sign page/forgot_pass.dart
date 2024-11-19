@@ -14,7 +14,7 @@ class ForgottenPasswordActivity extends StatelessWidget {
         title: const Text('Reset Password'),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        titleTextStyle: const TextStyle(color: Colors.blue),
+        titleTextStyle: const TextStyle(color: Colors.black),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -26,64 +26,77 @@ class ForgottenPasswordActivity extends StatelessWidget {
                 'Enter your email address',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.blue,
+                  color: Colors.black38,
                 ),
               ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email id',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+              const SizedBox(height: 35),
+              Container(
+                width: 350,
+                child: TextFormField(
+                  cursorColor: Colors.black,
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email id',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color :Colors.black),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () async {
-                  String email = emailController.text.trim();
-                  if (email.isNotEmpty) {
-                    try {
-                      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+              const SizedBox(height: 25),
+              Container(
+                width: 200,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      String email = emailController.text.trim();
+                      if (email.isNotEmpty) {
+                        try {
+                          await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Password reset email sent! Check your inbox.'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const reset_pass()));
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'user-not-found') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('No account found for this email.'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(e.message ?? 'An error occurred'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please enter your email'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Password reset email sent! Check your inbox.'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const reset_pass()),
-                      );
-                    } on FirebaseAuthException catch (e) {
-                      String errorMessage = e.message ?? 'An error occurred';
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(errorMessage),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please enter your email'),
-                        backgroundColor: Colors.orange,
-                      ),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    minimumSize: const Size(double.infinity, 0),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  minimumSize: const Size(double.infinity, 0),
+                  child: const Text('Reset Password', style: TextStyle(color: Colors.white)),
                 ),
-                child: const Text('Reset Password'),
               ),
             ],
           ),
