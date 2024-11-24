@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../login & sign page/login_page.dart';
+import '../weather/weather-home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -136,7 +137,7 @@ class _HomepageState extends State<Homepage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Padding(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.only(left: 1),
                           child: Row(
                             children: [
                               Text(
@@ -157,7 +158,7 @@ class _HomepageState extends State<Homepage> {
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 145),
+                              padding: const EdgeInsets.only(left: 140),
                               child: Container(
                                 height: 50,
                                 width: 50,
@@ -165,7 +166,19 @@ class _HomepageState extends State<Homepage> {
                                     'assets/path-removebg-preview.png'),
                               ),
                             ),
-                            SizedBox(width: screenWidth * 0.2),
+                            SizedBox(width: screenWidth * 0.14),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>WeatherHome()));
+                              },
+                              child: Container(
+                                child: Image.asset('assets/cloudy.png'),
+
+                                width: 25,
+                                height: 25,
+                              ),
+                            ),
+                            SizedBox(width: screenWidth * 0.025),
                             IconButton(
                               onPressed: () {
                                 _signOut();
@@ -438,7 +451,6 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: screenHeight * 0.025,
                   ),
@@ -457,8 +469,7 @@ class _HomepageState extends State<Homepage> {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                          },
+                          onTap: () {},
                           child: Stack(
                             children: [
                               Container(
@@ -533,7 +544,8 @@ class _HomepageState extends State<Homepage> {
                                       ),
                                       SizedBox(height: 4),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Icon(
                                             Icons.star,
@@ -563,7 +575,7 @@ class _HomepageState extends State<Homepage> {
             const Profile_page()
 
             // Profile Screen
-           // const Center(child: Text('Profile Screen')),
+            // const Center(child: Text('Profile Screen')),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

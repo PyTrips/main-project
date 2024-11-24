@@ -142,7 +142,7 @@ class _AdminPageState extends State<AdminPage> {
                           Text(
                             'PUDUCHERRY',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: Colors.orange,
                             ),
